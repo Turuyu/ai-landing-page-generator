@@ -1,0 +1,164 @@
+<section class="features">
+  <div class="features-bg"></div>
+  <div class="features-content">
+    <h2 class="features-title">{{title}}</h2>
+    <div class="features-grid">
+      {{#each features}}
+      <div class="feature-card">
+        <div class="feature-icon">
+          {{#if icon}}
+          {{{icon}}}
+          {{else}}
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          {{/if}}
+        </div>
+        <h3 class="feature-title">{{title}}</h3>
+        <p class="feature-description">{{description}}</p>
+        <div class="feature-glow"></div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+<style>
+.features {
+  position: relative;
+  padding: 120px 24px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.features-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(var(--primary-rgb), 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(var(--primary-rgb), 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(var(--primary-rgb), 0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.features-content {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.features-title {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 60px;
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  position: relative;
+  padding: 40px 32px;
+  background: rgba(128, 128, 128, 0.05);
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(var(--primary-rgb), 0.3);
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  color: var(--bg);
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.feature-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.feature-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.feature-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.feature-card:hover .feature-glow {
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .features {
+    padding: 80px 20px;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-card {
+    padding: 32px 24px;
+  }
+}
+</style>
